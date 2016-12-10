@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,10 +15,9 @@ import java.util.Date;
  */
 public class ServiceStaff extends Staff {
 
-    private ArrayList<Service> serviceHistory;
 
     public ServiceStaff(String firstName, String lastName, String staffID,
-            String email, String address, String postcode, Boolean canDrive, Date DOB) {
+            String email, String address, String postcode, Boolean canDrive, LocalDate DOB) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.staffID = staffID;
@@ -28,20 +28,15 @@ public class ServiceStaff extends Staff {
         this.DOB = DOB;
     }
 
-    public Boolean addServiceHistory(Service service) {
-        Boolean result = false;
-        if (result) {
-            if (this.serviceHistory == null) {
-                serviceHistory = new ArrayList<>();
-            }
-            this.serviceHistory.add(service);
-            result = true;
-        }
-        return result;
-    }
-
     public ArrayList<Service> getServiceHistory() {
-        return serviceHistory;
+                ArrayList<Service> services = new ArrayList<>();
+
+        for (Service currentService : Service.getServiceHistory()) {
+            if (currentService.getStaffID() == this.staffID) {
+                services.add(currentService);
+            }
+        }
+        return services;
 
     }
 

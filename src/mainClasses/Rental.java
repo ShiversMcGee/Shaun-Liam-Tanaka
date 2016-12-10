@@ -6,6 +6,8 @@
 package mainClasses;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import utilities.IObserver;
 import utilities.ISubject;
@@ -19,24 +21,34 @@ public class Rental implements ISubject {
 
     private ISubject subject = new SubjectImpl();
 
+    private static ArrayList<Rental> rentalHistory = new ArrayList<>();
+    
     private String staffID;
     private String adminID;
-    private Date startDate;
+    private LocalDate startDate;
     private Duration duration;
     private Vehicle vehicle;
-    private Date returnedDate;
+    private LocalDate returnedDate;
     private String rentalDescription;
 
-    public Rental(String adminID, String staffID, Vehicle vehicle, Date startDate, Duration duration) {
-        this.adminID = adminID;
-        this.staffID = staffID;
+    public Rental(AdminStaff admin, Staff staff, Vehicle vehicle, LocalDate startDate, Duration duration) {
+        this.adminID = admin.getStaffID();
+        this.staffID = staff.getStaffID();
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.duration = duration;
-
+        
+        Rental.rentalHistory.add(this);
+        
     }
 
-    public void setReturnedDate(Date returnedDate) {
+    public static ArrayList<Rental> getRentalHistory() {
+        return Rental.rentalHistory;
+    }
+    
+    public void setReturnedDate(LocalDate returnedDate) {
+        //int index = this.rentalHistory.indexOf(this);
+        //this.rentalHistory.get(index).returnedDate = returnedDate;
         this.returnedDate = returnedDate;
         notifyObservers();
     }
@@ -54,7 +66,7 @@ public class Rental implements ISubject {
         return adminID;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -66,7 +78,7 @@ public class Rental implements ISubject {
         return vehicle;
     }
 
-    public Date getReturnedDate() {
+    public LocalDate getReturnedDate() {
         return returnedDate;
     }
 

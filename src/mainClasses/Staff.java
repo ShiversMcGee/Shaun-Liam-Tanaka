@@ -5,7 +5,7 @@
  */
 package mainClasses;
 
-import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,8 +22,7 @@ public abstract class Staff {
     String address;
     String postcode;
     Boolean canDrive;
-    Date DOB;
-    private ArrayList<Rental> rentalHistory;
+    LocalDate DOB;
     private ArrayList<String> staffNotes;
 
     public ArrayList<String> getStaffNotes() {
@@ -55,39 +54,15 @@ public abstract class Staff {
         return result;
     }
 
-    public Boolean giveRental(AdminStaff admin, Vehicle vehicle, Date startDate, Duration duration) {
-        Boolean result = false;
-        if (admin != null && vehicle != null && startDate != null && duration != null) {
-            if (!admin.getStaffID().equals(this.staffID)) {
-                Rental rental = new Rental(admin.getStaffID(), this.staffID, vehicle, startDate, duration);
-                if (this.rentalHistory == null) {
-                    this.rentalHistory = new ArrayList<>();
-                }
-                rentalHistory.add(rental);
-                admin.addRentedOutHistory(rental);
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    public Boolean returnRental(Rental rental, Date returnDate) {
-        Boolean result = false;
-        if (rental != null && returnDate != null) {
-            if (rentalHistory != null) {
-                if (rentalHistory.contains(rental)) {
-                    int index = rentalHistory.indexOf(rental);
-                    rentalHistory.get(index).setReturnedDate(returnDate);
-                    result = true;
-                }
-            }
-
-        }
-        return result;
-    }
-
     public ArrayList<Rental> getRentalHistory() {
-        return this.rentalHistory;
+        ArrayList<Rental> rentals = new ArrayList<>();
+
+        for (Rental currentRental : Rental.getRentalHistory()) {
+            if (currentRental.getStaffID() == this.staffID) {
+                rentals.add(currentRental);
+            }
+        }
+        return rentals;
     }
 
     public String getFirstName() {
@@ -146,11 +121,11 @@ public abstract class Staff {
         this.canDrive = canDrive;
     }
 
-    public Date getDOB() {
+    public LocalDate getDOB() {
         return DOB;
     }
 
-    public void setDOB(Date DOB) {
+    public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
     }
 }

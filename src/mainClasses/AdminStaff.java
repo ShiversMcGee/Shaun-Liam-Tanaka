@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,10 +15,8 @@ import java.util.Date;
  */
 public class AdminStaff extends Staff {
 
-    private ArrayList<Rental> rentedOutHistory;
-
     public AdminStaff(String firstName, String lastName, String staffID,
-            String email, String address, String postcode, Boolean canDrive, Date DOB) {
+            String email, String address, String postcode, Boolean canDrive, LocalDate DOB) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.staffID = staffID;
@@ -28,21 +27,15 @@ public class AdminStaff extends Staff {
         this.DOB = DOB;
     }
 
-    public Boolean addRentedOutHistory(Rental rental) {
-        Boolean result = false;
-        if (rental != null) {
-
-            if (this.rentedOutHistory == null) {
-                rentedOutHistory = new ArrayList<>();
-            }
-            this.rentedOutHistory.add(rental);
-            result = true;
-        }
-        return result;
-    }
-
     public ArrayList<Rental> getRentedOutHistory() {
-        return rentedOutHistory;
+        ArrayList<Rental> rentals = new ArrayList<>();
+
+        for (Rental currentRental : Rental.getRentalHistory()) {
+            if (currentRental.getAdminID() == this.staffID) {
+                rentals.add(currentRental);
+            }
+        }
+        return rentals;
 
     }
 

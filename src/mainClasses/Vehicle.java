@@ -31,24 +31,20 @@ public class Vehicle {
     private Boolean forSale;
     private Boolean damaged;
     private int parkingSpot;
-    private ArrayList<Service> serviceHistory;
 
     public ArrayList<Service> getServiceHistory() {
-        return serviceHistory;
-    }
+                ArrayList<Service> services = new ArrayList<>();
 
-    public Boolean addServiceHistory(Service service) {
-        Boolean result = false;
-        if (service != null) {
-            if (this.serviceHistory == null) {
-                serviceHistory = new ArrayList<>();
+        for (Service currentService : Service.getServiceHistory()) {
+            if (currentService.getVehicle() == this) {
+                services.add(currentService);
             }
-            this.serviceHistory.add(service);
-            result = true;
         }
-        return result;
-    }
+        return services;
 
+    }
+    
+    
     public int getSeats() {
         return seats;
     }

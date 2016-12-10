@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 public class RegularStaff extends Staff{
     
         public RegularStaff(String firstName, String lastName, String staffID,
-            String email, String address, String postcode, Boolean canDrive, Date DOB)
+            String email, String address, String postcode, Boolean canDrive, LocalDate DOB)
     {
         this.firstName = firstName;
         this.lastName = lastName;
