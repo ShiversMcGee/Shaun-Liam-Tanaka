@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import utilities.IObserver;
@@ -21,13 +22,13 @@ public class Service implements ISubject {
 
     private static ArrayList<Service> serviceHistory = new ArrayList<>();
 
-    private Date serviceStartDate;
+    private LocalDate serviceStartDate;
     private String staffID;
     private Vehicle vehicle;
     private Boolean vehicleDamaged;
-    private Date serviceEndDate;
+    private LocalDate serviceEndDate;
 
-    public Service(Date serviceStartDate, ServiceStaff serviceStaff,
+    public Service(LocalDate serviceStartDate, ServiceStaff serviceStaff,
             Vehicle vehicle, Boolean vehicleDamaged) {
         this.serviceStartDate = serviceStartDate;
         this.staffID = serviceStaff.getStaffID();
@@ -41,12 +42,12 @@ public class Service implements ISubject {
         return Service.serviceHistory;
     }
 
-    public void setServiceEndDate(Date serviceEndDate) {
+    public void setServiceEndDate(LocalDate serviceEndDate) {
         this.serviceEndDate = serviceEndDate;
         notifyObservers();
     }
 
-    public Date getServiceStartDate() {
+    public LocalDate getServiceStartDate() {
         return serviceStartDate;
     }
 
@@ -63,7 +64,7 @@ public class Service implements ISubject {
         return vehicleDamaged;
     }
 
-    public Date getServiceEndDate() {
+    public LocalDate getServiceEndDate() {
         return serviceEndDate;
     }
 
