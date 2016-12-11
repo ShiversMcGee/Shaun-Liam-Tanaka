@@ -37,6 +37,21 @@ public class Vehicle implements ISubject{
     private Boolean toBeServiced;
     private ISubject subject = new SubjectImpl();    
 
+    
+    public Vehicle(VehicleType vehicleType, Manufacturer manufacturer, TransmissionType transmission,
+    int seats, int doors, String licensePlate)
+    {
+        this.vehicleType = vehicleType;
+        this.manufacturer = manufacturer;
+        this.transmission = transmission;
+        this.seats = seats;
+        this.doors = doors;
+        this.licensePlate = licensePlate;
+        
+        CarPark.getVehicleList().add(this);
+    
+    }
+    
     public Boolean getToBeServiced() {
         return toBeServiced;
     }

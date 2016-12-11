@@ -15,7 +15,7 @@ public class CarPark {
 
     private static ArrayList<Vehicle> vehicleList = new ArrayList<>();
 
-    private int numberOfSpace = 100;
+    private int numberOfSpaces = 100;
 
     CarPark carPark;
 
@@ -24,6 +24,14 @@ public class CarPark {
             carPark = new CarPark();
         }
         return carPark;
+    }
+
+    public static ArrayList<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
+    public int getNumberOfSpaces() {
+        return numberOfSpaces;
     }
 
     public Boolean checkSpace(int space) {
@@ -76,5 +84,12 @@ public class CarPark {
             }
         }
         return tempArray;
+    }
+    
+    public void addCarToList(Vehicle vehicle)
+    {        
+        if (vehicle !=null) {
+            CarPark.vehicleList.add(vehicle);
+        }
     }
 }

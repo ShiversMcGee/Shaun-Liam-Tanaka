@@ -30,7 +30,7 @@ public class TestHarness implements IObserver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Starting test");       
+        /*System.out.println("Starting test");       
         
         LocalDate DOB = LocalDate.now();
         ServiceStaff staff1 = new ServiceStaff("Shaun", "Howells", "1122",
@@ -42,6 +42,9 @@ public class TestHarness implements IObserver {
         IObserver observer = new AnObserver();
         test.registerObserver(observer);
         test.setServiceEndDate(DOB);
+        */
+        
+        
         /*
         System.out.println(staff1.getFirstName() + staff1.getLastName()
                 + staff1.getStaffID() + staff1.getEmail() + staff1.getAddress()
