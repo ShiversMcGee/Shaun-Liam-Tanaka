@@ -78,37 +78,20 @@ public class Vehicle implements ISubject{
         return seats;
     }
 
-    public void setSeats(int seats) {
-        this.seats = seats;
-        notifyObservers();
-    }
 
     public int getDoors() {
         return doors;
-    }
-
-    public void setDoors(int doors) {
-        this.doors = doors;
-        notifyObservers();
     }
 
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(Manufacturer manufacturer) {
-        this.manufacturer = manufacturer;
-        notifyObservers();
-    }
 
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-        notifyObservers();
-    }
 
     public Date getLastServiceDate() {
         return lastServiceDate;
@@ -132,10 +115,6 @@ public class Vehicle implements ISubject{
         return transmission;
     }
 
-    public void setTransmission(TransmissionType transmission) {
-        this.transmission = transmission;
-        notifyObservers();
-    }
 
     public String getPhysicalState() {
         return physicalState;
@@ -157,11 +136,6 @@ public class Vehicle implements ISubject{
 
     public VehicleType getVehicleType() {
         return vehicleType;
-    }
-
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
-        notifyObservers();
     }
 
     public Boolean getRentalState() {
