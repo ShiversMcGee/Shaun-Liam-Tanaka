@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import enumerations.StaffType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,14 +18,7 @@ public class AdminStaff extends Staff {
 
     public AdminStaff(String firstName, String lastName, String staffID,
             String email, String address, String postcode, Boolean canDrive, LocalDate DOB) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.staffID = staffID;
-        this.email = email;
-        this.address = address;
-        this.postcode = postcode;
-        this.canDrive = canDrive;
-        this.DOB = DOB;
+        super(firstName, lastName, staffID, email, address, postcode, canDrive, DOB);
     }
 
     public ArrayList<Rental> getRentedOutHistory() {
@@ -37,6 +31,12 @@ public class AdminStaff extends Staff {
         }
         return rentals;
 
+    }
+    
+    @Override
+    public StaffType getStaffType() 
+    {
+        return StaffType.admin;
     }
 
 }

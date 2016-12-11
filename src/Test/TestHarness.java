@@ -11,7 +11,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import mainClasses.AdminStaff;
-import mainClasses.RegularStaff;
 import mainClasses.Rental;
 import mainClasses.Service;
 import mainClasses.ServiceStaff;
@@ -95,8 +94,50 @@ public class TestHarness implements IObserver {
         System.out.println(rentedList.get(0).getRentalDescription());
         System.out.println(Rental.getRentalHistory().get(0).getRentalDescription());
 */
+        //testing staff is created properly
+        System.out.println("Test Started...");
+        
+        //initialise objects
+        Staff admin = new AdminStaff("John","Garrick","AStaff01","JG@Gmail.com","24 Sea View Terrace", "PL4 3KJ", true, LocalDate.now());
+        System.out.println("Admin Created...");
+        
+        Staff serviceStaff = new ServiceStaff("Sarah","Goodwine","SStaff02","gon@Gmail.com","1 Sea View Terrace", "PL4 3KJ", true, LocalDate.now());
+        System.out.println("Service Staff Created...");
+        
+        Staff staff = new Staff("Norwi","Geril","RStaff03","Rad@Gmail.com","3 Sea View Terrace", "PL4 3KJ", true, LocalDate.now());
+        System.out.println("Regular Staff Created...");
+        
+        //print details
+        String adminDetails = printDetails(admin);
+        String serviceDetails = printDetails(serviceStaff);
+       String staffDetails =  printDetails(staff);
+        
+        //print result
+        System.out.println(adminDetails + "\n" + serviceDetails + "\n" + staffDetails);
+        
+        System.out.println("Test Complete...");
+        
+        
+        
+        
     }
 
+    private static String printDetails(Staff staff)
+    {
+       String details = "This is "+staff.getFirstName() 
+        + " " 
+        + staff.getLastName()
+        +" of type \""
+        +staff.getStaffType().toString()
+        + "\", and they live at " 
+        + staff.getAddress()
+        + ", "
+        + staff.getPostcode()
+        +"."; 
+       
+       return details;
+    }
+    
     @Override
     public void update() {
         System.out.println("State Change was detected!");

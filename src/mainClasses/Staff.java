@@ -5,6 +5,7 @@
  */
 package mainClasses;
 
+import enumerations.StaffType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,18 +14,31 @@ import java.util.Date;
  *
  * @author smhowells
  */
-public abstract class Staff {
+public class Staff {
 
-    String firstName;
-    String lastName;
-    String staffID;
-    String email;
-    String address;
-    String postcode;
-    Boolean canDrive;
-    LocalDate DOB;
-    private ArrayList<String> staffNotes;
+    protected String firstName;
+    protected String lastName;
+    protected String staffID;
+    protected String email;
+    protected String address;
+    protected String postcode;
+    protected Boolean canDrive;
+    protected LocalDate DOB;
+    protected ArrayList<String> staffNotes;
+    
 
+        public Staff(String firstName, String lastName, String staffID,
+            String email, String address, String postcode, Boolean canDrive, LocalDate DOB) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.staffID = staffID;
+        this.email = email;
+        this.address = address;
+        this.postcode = postcode;
+        this.canDrive = canDrive;
+        this.DOB = DOB;
+    }
+    
     public ArrayList<String> getStaffNotes() {
         return staffNotes;
     }
@@ -127,5 +141,10 @@ public abstract class Staff {
 
     public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
+    }
+    
+    public StaffType getStaffType()
+    {
+        return StaffType.regular;
     }
 }
