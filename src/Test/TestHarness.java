@@ -13,6 +13,7 @@ import java.util.Date;
 import mainClasses.AdminStaff;
 import mainClasses.RegularStaff;
 import mainClasses.Rental;
+import mainClasses.Service;
 import mainClasses.ServiceStaff;
 import mainClasses.Staff;
 import mainClasses.Vehicle;
@@ -29,11 +30,19 @@ public class TestHarness implements IObserver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Starting test");
+        System.out.println("Starting test");       
+        
         LocalDate DOB = LocalDate.now();
-        AdminStaff staff1 = new AdminStaff("Shaun", "Howells", "1122",
+        ServiceStaff staff1 = new ServiceStaff("Shaun", "Howells", "1122",
                 "shaun.howells@students.plymouth.ac.uk", "Some place", "PL1 1QQ",
                 true, DOB);
+        Vehicle coolCar = new Vehicle();
+        
+        Service test = new Service(DOB, staff1, coolCar, true);
+        IObserver observer = new AnObserver();
+        test.registerObserver(observer);
+        test.setServiceEndDate(DOB);
+        /*
         System.out.println(staff1.getFirstName() + staff1.getLastName()
                 + staff1.getStaffID() + staff1.getEmail() + staff1.getAddress()
                 + staff1.getPostcode() + staff1.getCanDrive() + staff1.getDOB());
@@ -82,7 +91,7 @@ public class TestHarness implements IObserver {
 
         System.out.println(rentedList.get(0).getRentalDescription());
         System.out.println(Rental.getRentalHistory().get(0).getRentalDescription());
-
+*/
     }
 
     @Override

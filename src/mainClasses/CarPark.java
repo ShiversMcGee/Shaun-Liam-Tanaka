@@ -37,5 +37,44 @@ public class CarPark {
         }
         return result;
     }
-
+    
+    public ArrayList<Vehicle> getToBeServiced() {
+        ArrayList<Vehicle> tempArray = new ArrayList<>();
+        for (Vehicle currentVehicle : vehicleList) {
+            if (currentVehicle.getToBeServiced()) {
+                tempArray.add(currentVehicle);
+            }
+        }
+        return tempArray;
+    }
+    
+    public ArrayList<Vehicle> getToBeSold() {
+        ArrayList<Vehicle> tempArray = new ArrayList<>();
+        for (Vehicle currentVehicle : vehicleList) {
+            if (currentVehicle.getForSale()) {
+                tempArray.add(currentVehicle);
+            }
+        }
+        return tempArray;
+    }
+    
+    public ArrayList<Vehicle> getDamaged() {
+        ArrayList<Vehicle> tempArray = new ArrayList<>();
+        for (Vehicle currentVehicle : vehicleList) {
+            if (currentVehicle.getDamaged()) {
+                tempArray.add(currentVehicle);
+            }
+        }
+        return tempArray;
+    }
+    
+    public ArrayList<Vehicle> getAvailable() {
+        ArrayList<Vehicle> tempArray = new ArrayList<>();
+        for (Vehicle currentVehicle : vehicleList) {
+            if (currentVehicle.getAvailable()) {
+                tempArray.add(currentVehicle);
+            }
+        }
+        return tempArray;
+    }
 }

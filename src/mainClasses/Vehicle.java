@@ -10,12 +10,15 @@ import enumerations.TransmissionType;
 import enumerations.VehicleType;
 import java.util.ArrayList;
 import java.util.Date;
+import utilities.IObserver;
+import utilities.ISubject;
+import utilities.SubjectImpl;
 
 /**
  *
  * @author smhowells
  */
-public class Vehicle {
+public class Vehicle implements ISubject{
 
     private int seats;
     private int doors;
@@ -31,6 +34,17 @@ public class Vehicle {
     private Boolean forSale;
     private Boolean damaged;
     private int parkingSpot;
+    private Boolean toBeServiced;
+    private ISubject subject = new SubjectImpl();    
+
+    public Boolean getToBeServiced() {
+        return toBeServiced;
+    }
+
+    public void setToBeServiced(Boolean toBeServiced) {
+        this.toBeServiced = toBeServiced;
+        notifyObservers();
+    }
 
     public ArrayList<Service> getServiceHistory() {
                 ArrayList<Service> services = new ArrayList<>();
@@ -51,6 +65,7 @@ public class Vehicle {
 
     public void setSeats(int seats) {
         this.seats = seats;
+        notifyObservers();
     }
 
     public int getDoors() {
@@ -59,6 +74,7 @@ public class Vehicle {
 
     public void setDoors(int doors) {
         this.doors = doors;
+        notifyObservers();
     }
 
     public Manufacturer getManufacturer() {
@@ -67,6 +83,7 @@ public class Vehicle {
 
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
+        notifyObservers();
     }
 
     public String getLicensePlate() {
@@ -75,6 +92,7 @@ public class Vehicle {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
+        notifyObservers();
     }
 
     public Date getLastServiceDate() {
@@ -83,6 +101,7 @@ public class Vehicle {
 
     public void setLastServiceDate(Date lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
+        notifyObservers();
     }
 
     public Date getNextServiceDate() {
@@ -91,6 +110,7 @@ public class Vehicle {
 
     public void setNextServiceDate(Date nextServiceDate) {
         this.nextServiceDate = nextServiceDate;
+        notifyObservers();
     }
 
     public TransmissionType getTransmission() {
@@ -99,6 +119,7 @@ public class Vehicle {
 
     public void setTransmission(TransmissionType transmission) {
         this.transmission = transmission;
+        notifyObservers();
     }
 
     public String getPhysicalState() {
@@ -107,6 +128,7 @@ public class Vehicle {
 
     public void setPhysicalState(String physicalState) {
         this.physicalState = physicalState;
+        notifyObservers();
     }
 
     public Boolean getAvailable() {
@@ -115,6 +137,7 @@ public class Vehicle {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+        notifyObservers();
     }
 
     public VehicleType getVehicleType() {
@@ -123,6 +146,7 @@ public class Vehicle {
 
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
+        notifyObservers();
     }
 
     public Boolean getRentalState() {
@@ -131,6 +155,7 @@ public class Vehicle {
 
     public void setRentalState(Boolean rentalState) {
         this.rentalState = rentalState;
+        notifyObservers();
     }
 
     public Boolean getForSale() {
@@ -139,6 +164,7 @@ public class Vehicle {
 
     public void setForSale(Boolean forSale) {
         this.forSale = forSale;
+        notifyObservers();
     }
 
     public Boolean getDamaged() {
@@ -147,6 +173,7 @@ public class Vehicle {
 
     public void setDamaged(Boolean damaged) {
         this.damaged = damaged;
+        notifyObservers();
     }
 
     public int getParkingSpot() {
@@ -155,5 +182,21 @@ public class Vehicle {
 
     public void setParkingSpot(int parkingSpot) {
         this.parkingSpot = parkingSpot;
+        notifyObservers();
+    }
+
+    @Override
+    public Boolean registerObserver(IObserver o) {
+        return this.subject.registerObserver(o);
+    }
+
+    @Override
+    public Boolean removeObserver(IObserver o) {
+        return this.subject.removeObserver(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        this.subject.notifyObservers();
     }
 }
