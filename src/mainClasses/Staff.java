@@ -6,16 +6,19 @@
 package mainClasses;
 
 import enumerations.StaffType;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import utilities.IObserver;
+import utilities.ISubject;
 
 /**
  *
  * @author smhowells
  */
-public class Staff {
+public class Staff implements Serializable, ISubject{
 
+    
     protected String firstName;
     protected String lastName;
     protected String staffID;
@@ -24,6 +27,7 @@ public class Staff {
     protected String postcode;
     protected Boolean canDrive;
     protected LocalDate DOB;
+    protected ArrayList<IObserver> observers = null;
     protected ArrayList<String> staffNotes;
     
 
@@ -37,6 +41,8 @@ public class Staff {
         this.postcode = postcode;
         this.canDrive = canDrive;
         this.DOB = DOB;
+        
+        TransportSystem.getInstance().addStaffToList(this);
     }
     
     public ArrayList<String> getStaffNotes() {
@@ -51,6 +57,7 @@ public class Staff {
             }
             this.staffNotes.add(note);
             result = true;
+            notifyObservers();
         }
         return result;
     }
@@ -71,7 +78,7 @@ public class Staff {
     public ArrayList<Rental> getRentalHistory() {
         ArrayList<Rental> rentals = new ArrayList<>();
 
-        for (Rental currentRental : Rental.getRentalHistory()) {
+        for (Rental currentRental : TransportSystem.getInstance().getRentalHistory()) {
             if (currentRental.getStaffID() == this.staffID) {
                 rentals.add(currentRental);
             }
@@ -85,6 +92,7 @@ public class Staff {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        notifyObservers();
     }
 
     public String getLastName() {
@@ -93,6 +101,7 @@ public class Staff {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        notifyObservers();
     }
 
     public String getStaffID() {
@@ -101,6 +110,7 @@ public class Staff {
 
     public void setStaffID(String staffID) {
         this.staffID = staffID;
+        notifyObservers();
     }
 
     public String getEmail() {
@@ -109,6 +119,7 @@ public class Staff {
 
     public void setEmail(String email) {
         this.email = email;
+        notifyObservers();
     }
 
     public String getAddress() {
@@ -117,6 +128,7 @@ public class Staff {
 
     public void setAddress(String address) {
         this.address = address;
+        notifyObservers();
     }
 
     public String getPostcode() {
@@ -125,6 +137,7 @@ public class Staff {
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
+        notifyObservers();
     }
 
     public Boolean getCanDrive() {
@@ -141,10 +154,55 @@ public class Staff {
 
     public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
+        notifyObservers();
     }
     
     public StaffType getStaffType()
     {
         return StaffType.regular;
+    }
+
+    @Override
+    public Boolean registerObserver(IObserver o)
+    {
+        Boolean blnAdded = false;                
+        if (o != null)
+        {
+            if (this.observers == null)
+            {
+                this.observers = new ArrayList<>();
+            }
+            if (!this.observers.contains(o))
+            {
+                blnAdded = this.observers.add(o);
+            }
+        }
+        return blnAdded;
+    }
+
+    @Override
+    public Boolean removeObserver(IObserver o)
+    {
+        Boolean blnRemoved = false;
+        if (o != null)
+        {
+            if (this.observers != null && this.observers.size() > 0)
+            {
+                blnRemoved = this.observers.remove(o);
+            }
+        }
+        return blnRemoved;
+    }
+
+    @Override
+    public void notifyObservers()
+    {
+        if (this.observers != null && this.observers.size() > 0)
+        {
+            for (IObserver currentObserver : this.observers)
+            {
+                currentObserver.update();
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 package mainClasses;
 
 import enumerations.StaffType;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
  *
  * @author smhowells
  */
-public class ServiceStaff extends Staff {
+public class ServiceStaff extends Staff implements Serializable{
 
 
     public ServiceStaff(String firstName, String lastName, String staffID,
@@ -25,7 +26,7 @@ public class ServiceStaff extends Staff {
     public ArrayList<Service> getServiceHistory() {
                 ArrayList<Service> services = new ArrayList<>();
 
-        for (Service currentService : Service.getServiceHistory()) {
+        for (Service currentService : TransportSystem.getInstance().getServiceHistory()) {
             if (currentService.getStaffID() == this.staffID) {
                 services.add(currentService);
             }
