@@ -5,23 +5,20 @@
  */
 package mainClasses;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import utilities.IObserver;
 import utilities.ISubject;
-import utilities.SubjectImpl;
 
 /**
  *
  * @author smhowells
  */
-public class Service implements ISubject {
+public class Service implements ISubject, Serializable {
 
-    private ISubject subject = new SubjectImpl();
-
-    private static ArrayList<Service> serviceHistory = new ArrayList<>();
-
+    private ArrayList<IObserver> observers = null;
     private LocalDate serviceStartDate;
     private String staffID;
     private Vehicle vehicle;
@@ -35,12 +32,9 @@ public class Service implements ISubject {
         this.vehicle = vehicle;
         this.vehicleDamaged = vehicleDamaged;
 
-        Service.serviceHistory.add(this);
+        TransportSystem.getInstance().addServiceToList(this);
     }
 
-    public static ArrayList<Service> getServiceHistory() {
-        return Service.serviceHistory;
-    }
 
     public void setServiceEndDate(LocalDate serviceEndDate) {
         this.serviceEndDate = serviceEndDate;
@@ -69,18 +63,47 @@ public class Service implements ISubject {
     }
 
     @Override
-    public Boolean registerObserver(IObserver o) {
-        return this.subject.registerObserver(o);
+    public Boolean registerObserver(IObserver o)
+    {
+        Boolean blnAdded = false;                
+        if (o != null)
+        {
+            if (this.observers == null)
+            {
+                this.observers = new ArrayList<>();
+            }
+            if (!this.observers.contains(o))
+            {
+                blnAdded = this.observers.add(o);
+            }
+        }
+        return blnAdded;
     }
 
     @Override
-    public Boolean removeObserver(IObserver o) {
-        return this.subject.removeObserver(o);
+    public Boolean removeObserver(IObserver o)
+    {
+        Boolean blnRemoved = false;
+        if (o != null)
+        {
+            if (this.observers != null && this.observers.size() > 0)
+            {
+                blnRemoved = this.observers.remove(o);
+            }
+        }
+        return blnRemoved;
     }
 
     @Override
-    public void notifyObservers() {
-        this.subject.notifyObservers();
+    public void notifyObservers()
+    {
+        if (this.observers != null && this.observers.size() > 0)
+        {
+            for (IObserver currentObserver : this.observers)
+            {
+                currentObserver.update();
+            }
+        }
     }
 
 }

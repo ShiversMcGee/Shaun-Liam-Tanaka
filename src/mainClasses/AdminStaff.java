@@ -6,6 +6,7 @@
 package mainClasses;
 
 import enumerations.StaffType;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
  *
  * @author smhowells
  */
-public class AdminStaff extends Staff {
+public class AdminStaff extends Staff implements Serializable {
 
     public AdminStaff(String firstName, String lastName, String staffID,
             String email, String address, String postcode, Boolean canDrive, LocalDate DOB) {
@@ -24,7 +25,7 @@ public class AdminStaff extends Staff {
     public ArrayList<Rental> getRentedOutHistory() {
         ArrayList<Rental> rentals = new ArrayList<>();
 
-        for (Rental currentRental : Rental.getRentalHistory()) {
+        for (Rental currentRental : TransportSystem.getInstance().getRentalHistory()) {
             if (currentRental.getAdminID() == this.staffID) {
                 rentals.add(currentRental);
             }
