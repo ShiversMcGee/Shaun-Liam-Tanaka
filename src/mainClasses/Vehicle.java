@@ -31,7 +31,7 @@ public class Vehicle implements ISubject, Serializable{
     private String physicalState;
     private Boolean available = true;
     private VehicleType vehicleType;
-    private Boolean rentalState = false;
+    private Boolean rented = false;
     private Boolean forSale = false;
     private Boolean damaged = false;
     private int parkingSpot;
@@ -146,13 +146,12 @@ public class Vehicle implements ISubject, Serializable{
         return vehicleType;
     }
 
-    public Boolean getRentalState() {
-        return rentalState;
+    public Boolean isRented() {
+        return rented;
     }
 
-    public void setRentalState(Boolean rentalState) {
-        this.rentalState = rentalState;
-        notifyObservers();
+    public void setRented(Boolean rented) {
+        this.rented = rented;
     }
 
     public Boolean isForSale() {

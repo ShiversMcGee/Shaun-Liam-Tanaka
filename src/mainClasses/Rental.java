@@ -35,6 +35,9 @@ public class Rental implements ISubject, Serializable {
         this.duration = duration;
         
         
+        vehicle.setAvailable(false);
+        vehicle.setRented(true);
+        
         TransportSystem.getInstance().addRentalToList(this);    
     }
 
